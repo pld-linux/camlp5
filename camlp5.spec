@@ -1,16 +1,18 @@
 Summary:	Objective Caml Preprocessor
 Summary(pl.UTF-8):	Preprocesor OCamla
 Name:		camlp5
-Version:	5.11
-Release:	0.1
+Version:	6.02.2
+Release:	1
 License:	distributable
 Group:		Development/Languages
 Source0:	http://pauillac.inria.fr/~ddr/camlp5/distrib/src/%{name}-%{version}.tgz
-# Source0-md5:	26d69abd669c5fda43dbf35074debc81
-Source1:	http://pauillac.inria.fr/~ddr/camlp5/doc/pdf/%{name}-%{version}.pdf
-# Source1-md5:	57cf4eb162568d9b755e8120a1b82d43
+# Source0-md5:	b495bf26355451186c6725ee01add0da
+#Source1:	http://pauillac.inria.fr/~ddr/camlp5/doc/pdf/%{name}-%{version}.pdf
+Source1:	http://pauillac.inria.fr/~ddr/camlp5/doc/pdf/%{name}-6.00.pdf
+# Source1-md5:	b241eabfeb48f22b0fbd3e497198a76a
 URL:		http://caml.inria.fr/
 BuildRequires:	db-devel >= 4.1
+BuildRequires:	ocaml
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
