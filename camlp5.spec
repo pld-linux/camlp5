@@ -10,6 +10,7 @@ Source0:	http://pauillac.inria.fr/~ddr/camlp5/distrib/src/%{name}-%{version}.tgz
 #Source1:	http://pauillac.inria.fr/~ddr/camlp5/doc/pdf/%{name}-%{version}.pdf
 Source1:	http://pauillac.inria.fr/~ddr/camlp5/doc/pdf/%{name}-6.00.pdf
 # Source1-md5:	b241eabfeb48f22b0fbd3e497198a76a
+Patch0:		ocaml-4.02.2.patch
 URL:		http://caml.inria.fr/
 BuildRequires:	db-devel >= 4.1
 BuildRequires:	ocaml
@@ -63,6 +64,7 @@ cp %{SOURCE1} doc/camlp4.pdf
 
 cp ocaml_src/lib/versdep/4.02.{1,2}.ml
 cp -a ocaml_stuff/4.02.{1,2}
+%patch0 -p1
 
 %build 
 ./configure \
