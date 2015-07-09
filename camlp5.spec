@@ -61,6 +61,9 @@ Preprocesor OCamla - dokumentacja HTML.
 %setup -q
 cp %{SOURCE1} doc/camlp4.pdf
 
+cp ocaml_src/lib/versdep/4.02.{1,2}.ml
+cp -a ocaml_stuff/4.02.{1,2}
+
 %build 
 ./configure \
 	-bindir %{_bindir} \
