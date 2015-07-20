@@ -2,7 +2,7 @@ Summary:	Objective Caml Preprocessor
 Summary(pl.UTF-8):	Preprocesor OCamla
 Name:		camlp5
 Version:	6.12
-Release:	1
+Release:	2
 License:	distributable
 Group:		Development/Languages
 Source0:	http://pauillac.inria.fr/~ddr/camlp5/distrib/src/%{name}-%{version}.tgz
@@ -19,31 +19,31 @@ Requires:	%{name} = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Camlp4 is a Pre-Processor-Pretty-Printer for Objective Caml. It offers
+Camlp5 is a Pre-Processor-Pretty-Printer for Objective Caml. It offers
 tools for syntax (grammars) and the ability to modify the concrete
 syntax of the language (quotations, syntax extensions).
 
-Camlp4 can parse normal Ocaml concrete syntax or any other
+Camlp5 can parse normal Ocaml concrete syntax or any other
 user-definable syntax. As an example, an alternative syntax is
 provided, named revised, because it tries to fix some small problems
 of the normal syntax.
 
-Camlp4 can pretty print the normal Ocaml concrete syntax or the
+Camlp5 can pretty print the normal Ocaml concrete syntax or the
 revised one. It is therefore always possible to have a version of your
 sources compilable by the Objective Caml compiler without
 preprocessing.
 
 %description -l pl.UTF-8
-Camlp4 jest preprocesorem OCamla. Oferuje narzędzia do manipulowania
+Camlp5 jest preprocesorem OCamla. Oferuje narzędzia do manipulowania
 składnią (gramatyki) oraz możliwość modyfikowania oryginalnej składni
 języka (cytowania, rozszerzenia).
 
-Camlp4 może sparsować oryginalną składnię Ocamla lub dowolną inną
+Camlp5 może sparsować oryginalną składnię Ocamla lub dowolną inną
 definiowalną przez użytkownika. Jako przykład podana jest alternatywna
 składnia (revised syntax), która próbuje poprawić drobne problemy
 występujące w składni oryginalnej.
 
-Camlp4 umie ładnie formatować źródła zarówno w oryginalnej jak i
+Camlp5 umie ładnie formatować źródła zarówno w oryginalnej jak i
 poprawionej składni OCamla. Potrafi także tłumaczyć programy z jednej
 składni na drugą.
 
@@ -60,11 +60,12 @@ Preprocesor OCamla - dokumentacja HTML.
 
 %prep
 %setup -q
+%patch0 -p1
+
 cp %{SOURCE1} doc/camlp4.pdf
 
-cp ocaml_src/lib/versdep/4.02.{1,2}.ml
-cp -a ocaml_stuff/4.02.{1,2}
-%patch0 -p1
+#cp ocaml_src/lib/versdep/4.02.{1,2}.ml
+#cp -a ocaml_stuff/4.02.{1,2}
 
 %build 
 ./configure \
@@ -97,9 +98,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES DEVEL ICHANGES MODE README UPGRADING doc/camlp4.pdf
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/camlp5*
+%attr(755,root,root) %{_bindir}/mkcamlp5*
+%attr(755,root,root) %{_bindir}/ocpp5
 %{_libdir}/ocaml/%{name}
-%{_mandir}/man1/*
+%{_mandir}/man1/camlp5*.1*
+%{_mandir}/man1/mkcamlp5*.1*
+%{_mandir}/man1/ocpp5.1*
 
 %files doc-html
 %defattr(644,root,root,755)
