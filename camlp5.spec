@@ -1,3 +1,12 @@
+#
+# Conditional build:
+%bcond_without	ocaml_opt	# skip building native optimized binaries (bytecode is always built)
+
+# not yet available on x32 (ocaml 4.02.1), update when upstream will support it
+%ifnarch %{ix86} %{x8664} arm aarch64 ppc sparc sparcv9
+%undefine	with_ocaml_opt
+%endif
+
 Summary:	Objective Caml Preprocessor
 Summary(pl.UTF-8):	Preprocesor OCamla
 Name:		camlp5
@@ -64,9 +73,6 @@ Preprocesor OCamla - dokumentacja HTML.
 
 cp %{SOURCE1} doc/camlp4.pdf
 
-#cp ocaml_src/lib/versdep/4.02.{1,2}.ml
-#cp -a ocaml_stuff/4.02.{1,2}
-
 %build 
 ./configure \
 	-bindir %{_bindir} \
@@ -74,7 +80,7 @@ cp %{SOURCE1} doc/camlp4.pdf
 	-mandir %{_mandir}/man1 \
 	-transitional
 
-%{__make} -j1 world.opt
+%{__make} -j1 world%{?with_ocaml_opt:.opt}
 %{__make} -j1 -C doc/htmlp
 
 %install
@@ -86,9 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 	MANDIR=$RPM_BUILD_ROOT%{_mandir}
 
 # broken build system
-for f in camlp5o.opt.1 camlp5r.opt.1 mkcamlp5.1 ocpp5.1 \
-		 camlp5o.1 camlp5r.1 camlp5sch.1 mkcamlp5.opt.1 ; do
-	rm -f $RPM_BUILD_ROOT%{_mandir}/man1/$f
+for f in mkcamlp5.1 ocpp5.1 camlp5o.1 camlp5r.1 camlp5sch.1 \
+	%{?with_ocaml_opt:camlp5o.opt.1 camlp5r.opt.1 mkcamlp5.opt.1} ; do
+	%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/$f
 	echo '.so camlp5.1' >$RPM_BUILD_ROOT%{_mandir}/man1/$f
 done
 
