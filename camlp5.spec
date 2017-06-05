@@ -11,7 +11,7 @@ Summary:	Objective Caml Preprocessor
 Summary(pl.UTF-8):	Preprocesor OCamla
 Name:		camlp5
 Version:	6.15
-Release:	1
+Release:	2
 License:	distributable
 Group:		Development/Languages
 Source0:	http://camlp5.gforge.inria.fr/distrib/src/%{name}-%{version}.tgz
