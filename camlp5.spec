@@ -3,7 +3,7 @@
 %bcond_without	ocaml_opt	# skip building native optimized binaries (bytecode is always built)
 
 # not yet available on x32 (ocaml 4.02.1), update when upstream will support it
-%ifnarch %{ix86} %{x8664} arm aarch64 ppc sparc sparcv9
+%ifnarch %{ix86} %{x8664} %{arm} aarch64 ppc sparc sparcv9
 %undefine	with_ocaml_opt
 %endif
 
@@ -12,7 +12,7 @@ Summary(pl.UTF-8):	Preprocesor OCamla
 Name:		camlp5
 Version:	6.17
 %define		gitver	rel617
-Release:	1
+Release:	2
 License:	distributable
 Group:		Development/Languages
 #Source0:	http://camlp5.gforge.inria.fr/distrib/src/%{name}-%{version}.tgz
@@ -58,8 +58,8 @@ poprawionej składni OCamla. Potrafi także tłumaczyć programy z jednej
 składni na drugą.
 
 %package doc-html
-Summary:	Objective Caml Preprocessor - HTML documentation 
-Summary(pl.UTF-8):	Preprocesor OCamla - dokumentacja HTML 
+Summary:	Objective Caml Preprocessor - HTML documentation
+Summary(pl.UTF-8):	Preprocesor OCamla - dokumentacja HTML
 Group:		Development/Languages
 
 %description doc-html
@@ -68,12 +68,23 @@ Objective Caml Preprocessor - HTML documentation.
 %description doc-html -l pl.UTF-8
 Preprocesor OCamla - dokumentacja HTML.
 
+%package doc-pdf
+Summary:	Objective Caml Preprocessor - PDF documentation
+Summary(pl.UTF-8):	Preprocesor OCamla - dokumentacja w formacie PDF
+Group:		Development/Languages
+
+%description doc-pdf
+Objective Caml Preprocessor - PDF documentation.
+
+%description doc-pdf -l pl.UTF-8
+Preprocesor OCamla - dokumentacja w formacie PDF.
+
 %prep
 %setup -q -n %{name}-%{gitver}
 
-cp %{SOURCE1} doc/camlp4.pdf
+cp %{SOURCE1} doc/camlp5.pdf
 
-%build 
+%build
 ./configure \
 	-bindir %{_bindir} \
 	-libdir %{_libdir}/ocaml \
@@ -103,7 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES DEVEL ICHANGES MODE README UPGRADING doc/camlp4.pdf
+%doc CHANGES DEVEL ICHANGES MODE README UPGRADING
 %attr(755,root,root) %{_bindir}/camlp5*
 %attr(755,root,root) %{_bindir}/mkcamlp5*
 %attr(755,root,root) %{_bindir}/ocpp5
@@ -115,3 +126,7 @@ rm -rf $RPM_BUILD_ROOT
 %files doc-html
 %defattr(644,root,root,755)
 %doc doc/html/*
+
+%files doc-pdf
+%defattr(644,root,root,755)
+%doc doc/camlp5.pdf
