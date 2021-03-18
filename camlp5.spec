@@ -10,17 +10,15 @@
 Summary:	Objective Caml Preprocessor
 Summary(pl.UTF-8):	Preprocesor OCamla
 Name:		camlp5
-Version:	6.17
-%define		gitver	rel617
-Release:	2
+Version:	8.00
+Release:	1
 License:	distributable
 Group:		Development/Languages
-#Source0:	http://camlp5.gforge.inria.fr/distrib/src/%{name}-%{version}.tgz
-Source0:	https://github.com/camlp5/camlp5/archive/%{gitver}/%{name}-%{version}.tar.gz
-# Source0-md5:	572e0fa053715e40a40415ea3ca5d4ea
-Source1:	http://camlp5.gforge.inria.fr/doc/pdf/%{name}-6.00.pdf
-# Source1-md5:	b241eabfeb48f22b0fbd3e497198a76a
-URL:		http://caml.inria.fr/
+Source0:	https://github.com/camlp5/camlp5/archive/rel%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	477cdfa2be786ebc37c75e280d3ee504
+Patch0:		no-warn-error.patch
+Patch1:		DESTDIR.patch
+URL:		https://camlp5.github.io/
 BuildRequires:	db-devel >= 4.1
 BuildRequires:	ocaml
 BuildRequires:	ocaml-ocamlbuild
@@ -80,19 +78,22 @@ Objective Caml Preprocessor - PDF documentation.
 Preprocesor OCamla - dokumentacja w formacie PDF.
 
 %prep
-%setup -q -n %{name}-%{gitver}
+%setup -q -n %{name}-rel%{version}
+%patch0 -p1
+%patch1 -p1
 
-cp %{SOURCE1} doc/camlp5.pdf
+%{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+perl(\s|$),#!%{__perl}\1,' \
+      etc/mkcamlp5.pl
 
 %build
 ./configure \
+	-prefix %{_prefix} \
 	-bindir %{_bindir} \
 	-libdir %{_libdir}/ocaml \
-	-mandir %{_mandir}/man1 \
-	-transitional
+	-mandir %{_mandir}/man1
 
 %{__make} -j1 world%{?with_ocaml_opt:.opt}
-%{__make} -j1 -C doc/htmlp
+%{__make} -j1 -C doc/htmlp pdf
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -114,7 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES DEVEL ICHANGES MODE README UPGRADING
+%doc CHANGES DEVEL ICHANGES MODE README.md UPGRADING
 %attr(755,root,root) %{_bindir}/camlp5*
 %attr(755,root,root) %{_bindir}/mkcamlp5*
 %attr(755,root,root) %{_bindir}/ocpp5
@@ -129,4 +130,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc-pdf
 %defattr(644,root,root,755)
-%doc doc/camlp5.pdf
+%doc doc/htmlp/camlp5.pdf
