@@ -7,6 +7,10 @@
 %undefine	with_ocaml_opt
 %endif
 
+%if %{without ocaml_opt}
+%define		_enable_debug_packages	0
+%endif
+
 Summary:	Objective Caml Preprocessor
 Summary(pl.UTF-8):	Preprocesor OCamla
 Name:		camlp5
