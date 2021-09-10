@@ -14,14 +14,14 @@
 Summary:	Objective Caml Preprocessor
 Summary(pl.UTF-8):	Preprocesor OCamla
 Name:		camlp5
-Version:	8.00
+Version:	8.00.02
 Release:	1
 License:	distributable
 Group:		Development/Languages
+#Source0Download: https://github.com/camlp5/camlp5/releases
 Source0:	https://github.com/camlp5/camlp5/archive/rel%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	477cdfa2be786ebc37c75e280d3ee504
+# Source0-md5:	096076be4b26034643508511e834ccc2
 Patch0:		no-warn-error.patch
-Patch1:		DESTDIR.patch
 URL:		https://camlp5.github.io/
 BuildRequires:	db-devel >= 4.1
 BuildRequires:	ocaml
@@ -84,7 +84,6 @@ Preprocesor OCamla - dokumentacja w formacie PDF.
 %prep
 %setup -q -n %{name}-rel%{version}
 %patch0 -p1
-%patch1 -p1
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+perl(\s|$),#!%{__perl}\1,' \
       etc/mkcamlp5.pl
