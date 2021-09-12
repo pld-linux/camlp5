@@ -1,0 +1,52 @@
+--- camlp5-rel8.00.02/tools/ocamlc.sh.orig	2021-08-05 00:14:37.000000000 +0200
++++ camlp5-rel8.00.02/tools/ocamlc.sh	2021-09-12 19:30:57.975775853 +0200
+@@ -1,5 +1,5 @@
+ #!/bin/sh -e
+ 
+ COMM=${OCAMLN}c$OPT
+-echo $COMM $*
+-$COMM $*
++echo $COMM "$@"
++$COMM "$@"
+--- camlp5-rel8.00.02/tools/ocamlopt.sh.orig	2021-08-05 00:14:37.000000000 +0200
++++ camlp5-rel8.00.02/tools/ocamlopt.sh	2021-09-12 19:31:14.806650407 +0200
+@@ -1,5 +1,5 @@
+ #!/bin/sh -e
+ 
+ COMM=${OCAMLN}opt$OPT
+-echo $COMM $*
+-$COMM $*
++echo $COMM "$@"
++$COMM "$@"
+--- camlp5-rel8.00.02/ocaml_src/tools/ocamlc.sh.orig	2021-08-05 00:14:37.000000000 +0200
++++ camlp5-rel8.00.02/ocaml_src/tools/ocamlc.sh	2021-09-12 19:31:44.258180744 +0200
+@@ -1,5 +1,5 @@
+ #!/bin/sh -e
+ 
+ COMM=${OCAMLN}c$OPT
+-echo $COMM $*
+-$COMM $*
++echo $COMM "$@"
++$COMM "$@"
+--- camlp5-rel8.00.02/ocaml_src/tools/ocamlopt.sh.orig	2021-08-05 00:14:37.000000000 +0200
++++ camlp5-rel8.00.02/ocaml_src/tools/ocamlopt.sh	2021-09-12 19:31:57.728880697 +0200
+@@ -1,5 +1,5 @@
+ #!/bin/sh -e
+ 
+ COMM=${OCAMLN}opt$OPT
+-echo $COMM $*
+-$COMM $*
++echo $COMM "$@"
++$COMM "$@"
+--- camlp5-rel8.00.02/configure.orig	2021-09-12 19:35:45.520716664 +0200
++++ camlp5-rel8.00.02/configure	2021-09-12 19:40:02.490734388 +0200
+@@ -262,7 +262,7 @@ echo EXT_LIB=$EXT_LIB
+ echo OVERSION=$STUFFVERSION
+ echo VERSION=$VERSION
+-echo OCAMLC_W_Y=\"$OCAMLC_W_Y\"
+-echo WARNERR=\"$WARNERR\"
++echo OCAMLC_W_Y=$OCAMLC_W_Y
++echo WARNERR=$WARNERR
+ echo NO_PR_DIR=$NO_PR_DIR
+ echo OLIBDIR=$OLIBDIR
+ echo OCLIBDIR=$OCLIBDIR

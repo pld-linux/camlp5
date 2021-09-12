@@ -10,6 +10,7 @@
 %if %{without ocaml_opt}
 %define		_enable_debug_packages	0
 %endif
+%define		_debugsource_packages	0
 
 Summary:	Objective Caml Preprocessor
 Summary(pl.UTF-8):	Preprocesor OCamla
@@ -22,6 +23,7 @@ Group:		Development/Languages
 Source0:	https://github.com/camlp5/camlp5/archive/rel%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	096076be4b26034643508511e834ccc2
 Patch0:		no-warn-error.patch
+Patch1:		%{name}-flags.patch
 URL:		https://camlp5.github.io/
 BuildRequires:	db-devel >= 4.1
 BuildRequires:	ocaml
@@ -84,9 +86,12 @@ Preprocesor OCamla - dokumentacja w formacie PDF.
 %prep
 %setup -q -n %{name}-rel%{version}
 %patch0 -p1
+%patch1 -p1
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+perl(\s|$),#!%{__perl}\1,' \
       etc/mkcamlp5.pl
+
+%{__sed} -i -e 's/DEBUG=/&-ccopt "%{rpmcflags}" -cclib "%{rpmldflags}"/' config/Makefile.tpl
 
 %build
 ./configure \
@@ -96,6 +101,7 @@ Preprocesor OCamla - dokumentacja w formacie PDF.
 	-mandir %{_mandir}/man1
 
 %{__make} -j1 world%{?with_ocaml_opt:.opt}
+
 %{__make} -j1 -C doc/htmlp pdf
 
 %install
