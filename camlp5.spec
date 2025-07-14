@@ -85,8 +85,8 @@ Preprocesor OCamla - dokumentacja w formacie PDF.
 
 %prep
 %setup -q -n %{name}-rel%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 %{__sed} -E -i -e '1s,#!\s*/usr/bin/env\s+perl(\s|$),#!%{__perl}\1,' \
       etc/mkcamlp5.pl
